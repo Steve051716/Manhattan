@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.gyh.manhattan</groupId>
     <artifactId>manhattan</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.1.0</version>
     <name>manhattan</name>
     <description>Project Manhattan</description>
 
@@ -46,6 +46,13 @@
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+
+        <!-- 配合redis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
         </dependency>
 
         <dependency>

@@ -1,8 +1,12 @@
 package com.gyh.manhattan.common;
 
+/**
+ * @author gao-yh
+ */
 public class ConstParam {
 
-    public static final String GLOBAL_SESSION_ATTRIBUTE_USER_NAME = "loginName";
+    public static final String GLOBAL_SESSION_ATTRIBUTE_USER_ID = "loginUserId";
+    public static final String GLOBAL_SESSION_ATTRIBUTE_USER_NAME = "loginUserName";
 
     public static final String MESSAGE_LOGIN_FAILED = "账号或密码不正确。";
     public static final String MESSAGE_LOGIN_INFO_EMPTY = "账号或密码不能为空。";

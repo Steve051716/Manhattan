@@ -1,31 +1,44 @@
 package com.gyh.manhattan.interceptor;
 
 import com.gyh.manhattan.common.ConstParam;
-import com.gyh.manhattan.domain.UserInfo;
+import com.gyh.manhattan.utils.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author gao-yh
  */
 public class LoginInterceptor implements HandlerInterceptor {
-    private Logger LOG = LoggerFactory.getLogger(LoginInterceptor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoginInterceptor.class);
+    @Inject
+    private RedisUtil redisUtil;
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
 
-        String userName = (String)request.getSession().getAttribute(ConstParam.GLOBAL_SESSION_ATTRIBUTE_USER_NAME);
+        HttpSession session = request.getSession();
         LOG.info(request.getRequestURI());
-        if (StringUtils.isBlank(userName))  {
+        if (session != null)  {
+            if (!redisUtil.hasKey(session.getId())) {
+                response.sendRedirect("/login");
+                LOG.info("session已超时");
+                return false;
+            }
+        }
+        else {
             response.sendRedirect("/login");
             LOG.info("请先登录");
             return false;
+
         }
         return true;
     }

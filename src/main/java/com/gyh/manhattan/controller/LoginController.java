@@ -5,7 +5,11 @@ import com.gyh.manhattan.common.ConstParam;
 import com.gyh.manhattan.common.ExecuteResult;
 import com.gyh.manhattan.domain.UserInfo;
 import com.gyh.manhattan.service.UserInfoService;
+import com.gyh.manhattan.utils.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author gao-yh
@@ -24,8 +30,11 @@ import java.util.Map;
 @Controller
 public class LoginController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
     @Inject
     private UserInfoService userInfoService;
+    @Inject
+    private RedisUtil redisUtil;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String index(HttpServletRequest request, Model model, HttpServletResponse response) {
@@ -54,7 +63,11 @@ public class LoginController {
             result.setMessage(ConstParam.MESSAGE_LOGIN_FAILED);
             return JSON.toJSONString(result);
         }
-        request.getSession().setAttribute(ConstParam.GLOBAL_SESSION_ATTRIBUTE_USER_NAME, userInfo.getName());
+        HttpSession session = request.getSession();
+        session.setAttribute(ConstParam.GLOBAL_SESSION_ATTRIBUTE_USER_ID, userInfo.getId());
+        session.setAttribute(ConstParam.GLOBAL_SESSION_ATTRIBUTE_USER_NAME, userInfo.getName());
+        LOG.info(session.getId());
+        redisUtil.set(session.getId(), UUID.randomUUID().toString(), 60L*30);
         result.setStatus(ConstParam.STATUS_SUCCESS);
         result.setRedirectUrl("/index");
         return JSON.toJSONString(result);
