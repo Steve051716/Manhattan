@@ -1,6 +1,7 @@
 package com.gyh.manhattan.interceptor;
 
 import com.gyh.manhattan.common.ConstParam;
+import com.gyh.manhattan.utils.IdUtil;
 import com.gyh.manhattan.utils.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,9 +27,11 @@ public class LoginInterceptor implements HandlerInterceptor {
                              HttpServletResponse response, Object handler) throws Exception {
 
         HttpSession session = request.getSession();
+        String seesionId = null;
         LOG.info(request.getRequestURI());
         if (session != null)  {
-            if (!redisUtil.hasKey(session.getId())) {
+            seesionId = session.getId();
+            if (!redisUtil.hasKey(seesionId)) {
                 response.sendRedirect("/login");
                 LOG.info("session已超时");
                 return false;
@@ -40,6 +43,10 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
 
         }
+        // 重置session时间
+        String snowflakeId = IdUtil.getRandomIdToString();
+        LOG.info(snowflakeId);
+        redisUtil.set(seesionId, snowflakeId, 60L*30);
         return true;
     }
 

@@ -5,6 +5,7 @@ import com.gyh.manhattan.common.ConstParam;
 import com.gyh.manhattan.common.ExecuteResult;
 import com.gyh.manhattan.domain.UserInfo;
 import com.gyh.manhattan.service.UserInfoService;
+import com.gyh.manhattan.utils.IdUtil;
 import com.gyh.manhattan.utils.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -67,7 +68,10 @@ public class LoginController {
         session.setAttribute(ConstParam.GLOBAL_SESSION_ATTRIBUTE_USER_ID, userInfo.getId());
         session.setAttribute(ConstParam.GLOBAL_SESSION_ATTRIBUTE_USER_NAME, userInfo.getName());
         LOG.info(session.getId());
-        redisUtil.set(session.getId(), UUID.randomUUID().toString(), 60L*30);
+
+        String snowflakeId = IdUtil.getRandomIdToString();
+        LOG.info(snowflakeId);
+        redisUtil.set(session.getId(), snowflakeId, 60L*30);
         result.setStatus(ConstParam.STATUS_SUCCESS);
         result.setRedirectUrl("/index");
         return JSON.toJSONString(result);

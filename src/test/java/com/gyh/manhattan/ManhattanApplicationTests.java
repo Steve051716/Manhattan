@@ -30,7 +30,6 @@ public class ManhattanApplicationTests {
 
     @Test
     public void findAllUsers2()  {
-        System.out.println("get key value:"+ redisUtil.get(ConstParam.GLOBAL_SESSION_ATTRIBUTE_USER_ID + ":1"));
-        System.out.println(redisTemplate.opsForValue().get(ConstParam.GLOBAL_SESSION_ATTRIBUTE_USER_ID + ":1"));
+        System.out.println("get key value:"+ redisUtil.get("c19d536b-b9c4-4a5d-8aaa-b103d12d5e82"));
     }
 }
