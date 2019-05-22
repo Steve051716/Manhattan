@@ -1,18 +1,15 @@
 package com.gyh.manhattan.dao;
 
+import com.gyh.manhattan.base.dao.BaseDAO;
 import com.gyh.manhattan.domain.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Map;
 
+/**
+ * @author gao-yh
+ */
 @Mapper
-public interface UserInfoDAO {
+public interface UserInfoDAO extends BaseDAO<UserInfo, Long> {
 
-    int delete(Integer id);
-
-    int save(UserInfo record);
-
-    UserInfo findOneRecordByParam(Map<String, Object> param);
-
-    int update(UserInfo record);
 }
