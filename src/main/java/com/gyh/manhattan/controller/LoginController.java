@@ -7,6 +7,9 @@ import com.gyh.manhattan.domain.UserInfo;
 import com.gyh.manhattan.service.UserInfoService;
 import com.gyh.manhattan.utils.IdUtil;
 import com.gyh.manhattan.utils.RedisUtil;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -37,14 +41,17 @@ public class LoginController {
     @Inject
     private RedisUtil redisUtil;
 
+    @ApiIgnore
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String index(HttpServletRequest request, Model model, HttpServletResponse response) {
         return "login";
     }
 
+    @ApiOperation(value="登陆校验", notes="根据用户、密码是否存在")
+    @ApiImplicitParam(name = "request", value = "请求", required = true, dataType = "HttpServletRequest", paramType = "body")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public String login(HttpServletRequest request, Model model, HttpServletResponse response) throws Exception {
+    public String login(HttpServletRequest request) throws Exception {
         ExecuteResult result = new ExecuteResult();
         String name = request.getParameter("userName");
         String password = request.getParameter("userPassword");
@@ -77,6 +84,7 @@ public class LoginController {
         return JSON.toJSONString(result);
     }
 
+    @ApiIgnore
     @RequestMapping(value = "logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.getSession().invalidate();

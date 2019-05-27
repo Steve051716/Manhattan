@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +19,7 @@ public class IndexController {
 
     private static final Logger LOG = LoggerFactory.getLogger(IndexController.class);
 
+    @ApiIgnore
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(HttpServletRequest request, Model model) {
         String userName = request.getSession().getAttribute(ConstParam.GLOBAL_SESSION_ATTRIBUTE_USER_NAME) + "";

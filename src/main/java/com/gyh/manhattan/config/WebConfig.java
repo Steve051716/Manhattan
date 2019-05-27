@@ -7,6 +7,10 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * web配置
  * @author gao-yh
@@ -25,13 +29,15 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        List<String> swaggerPathPatterns = Arrays.asList("/swagger-ui.html", "/webjars/springfox-swagger-ui/**", "/swagger-resources/**", "/v2/api-docs");
         registry.addInterceptor(getLoginInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/logout")
                 .excludePathPatterns("/error")
                 .excludePathPatterns("/error/**")
-                .excludePathPatterns("/static/**");
+                .excludePathPatterns("/static/**")
+                .excludePathPatterns(swaggerPathPatterns);
     }
 
     @Override
