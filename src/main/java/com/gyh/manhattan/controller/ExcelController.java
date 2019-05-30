@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,9 +37,9 @@ public class ExcelController {
         return null;
     }
 
-    @RequestMapping(value = "/single", produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/single", method = RequestMethod.POST)
     @ResponseBody
-    public String importWithSingleThread(@RequestParam(value = "file") MultipartFile file, HttpServletRequest request) throws Exception {
+    public String importWithSingleThread(@RequestParam("file") MultipartFile file) throws Exception {
         List<ExcelData> resultList = this.parseExcel(file);
         String json = JSON.toJSONString(resultList);
         LOG.info(json);
