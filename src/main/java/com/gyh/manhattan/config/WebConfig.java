@@ -37,6 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/error")
                 .excludePathPatterns("/error/**")
                 .excludePathPatterns("/static/**")
+                .excludePathPatterns("/excel/**")
                 .excludePathPatterns(swaggerPathPatterns);
     }
 
