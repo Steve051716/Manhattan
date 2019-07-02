@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * DAO基类
+ * @author gaoyuhang
  * @param <T>
  * @param <Long>
  */
