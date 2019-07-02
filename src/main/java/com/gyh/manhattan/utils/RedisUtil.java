@@ -341,7 +341,7 @@ public class RedisUtil {
      * 增加(自增长), 负数则为自减
      *
      * @param key
-     * @param value
+     * @param increment
      * @return
      */
     public Long incrBy(String key, long increment) {
@@ -351,7 +351,7 @@ public class RedisUtil {
     /**
      *
      * @param key
-     * @param value
+     * @param increment
      * @return
      */
     public Double incrByFloat(String key, double increment) {
@@ -982,8 +982,6 @@ public class RedisUtil {
      * 获取集合所有元素
      *
      * @param key
-     * @param otherKeys
-     * @param destKey
      * @return
      */
     public Set<String> setMembers(String key) {
