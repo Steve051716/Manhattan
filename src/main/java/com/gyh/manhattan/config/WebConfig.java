@@ -38,7 +38,7 @@ public class WebConfig implements WebMvcConfigurer {
         filterRegistrationBean.setEnabled(true);
         filterRegistrationBean.addUrlPatterns("/*");
         Map<String, String> initParameters = Maps.newHashMap();
-        initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
+        initParameters.put("excludes", "/favicon.ico,/dist/*,/assets/*,/img/*,/js/*,/css/*");
         initParameters.put("isIncludeRichText", "true");
         filterRegistrationBean.setInitParameters(initParameters);
         return filterRegistrationBean;

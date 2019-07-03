@@ -35,6 +35,6 @@ public class IndexController {
         model.addAttribute("userId", userId);
         model.addAttribute("userName", userName);
         model.addAttribute("remark", userInfo.getRemark());
-        return "index";
+        return "/layout/index";
     }
 }
