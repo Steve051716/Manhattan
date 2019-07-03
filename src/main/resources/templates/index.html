@@ -9,13 +9,14 @@
 <body>
     <input type="hidden" id="userId" th:value="${userId}" />
     <h1>Welcome</h1><span th:text="${userName}"></span><br>
+    <a href="/logout">Logout</a>
     <!--<p>Remark: </p><br>
     old:<span th:text="${remark}"></span>
     <br>
     old1:<span th:utext="${remark}"></span>
     <br>
     new:<input type="text" id="remark" name="remark" th:value="${remark}" /><button onclick="save()">保存</button><br>
-    <a href="/logout">Logout</a>
+
 <script type="text/javascript">
     function save() {
         var userId = $("#userId").val();
