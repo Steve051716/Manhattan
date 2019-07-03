@@ -19,15 +19,19 @@ import java.util.regex.Pattern;
  * @author
  */
 public class XssFilter implements Filter {
-    private static Logger logger = LoggerFactory.getLogger(XssFilter.class);
+    private static Logger LOG = LoggerFactory.getLogger(XssFilter.class);
 
-    private static boolean IS_INCLUDE_RICH_TEXT = false;//是否过滤富文本内容
+    /**
+     * 是否过滤富文本内容
+     */
+    private static boolean IS_INCLUDE_RICH_TEXT = false;
 
-    public List<String> excludes = new ArrayList<String>();
+    public List<String> excludes = new ArrayList<>();
 
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,ServletException {
-        if(logger.isDebugEnabled()){
-            logger.debug("xss filter is open");
+        if(LOG.isDebugEnabled()){
+            LOG.debug("xss filter is open");
         }
 
         HttpServletRequest req = (HttpServletRequest) request;
@@ -36,8 +40,7 @@ public class XssFilter implements Filter {
             filterChain.doFilter(request, response);
             return;
         }
-
-        XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request,IS_INCLUDE_RICH_TEXT);
+        XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request, IS_INCLUDE_RICH_TEXT);
         filterChain.doFilter(xssRequest, response);
     }
 
@@ -46,7 +49,6 @@ public class XssFilter implements Filter {
         if (excludes == null || excludes.isEmpty()) {
             return false;
         }
-
         String url = request.getServletPath();
         for (String pattern : excludes) {
             Pattern p = Pattern.compile("^" + pattern);
@@ -55,20 +57,18 @@ public class XssFilter implements Filter {
                 return true;
             }
         }
-
         return false;
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        if(logger.isDebugEnabled()){
-            logger.debug("xss filter init~~~~~~~~~~~~");
+        if(LOG.isDebugEnabled()){
+            LOG.debug("xss filter init...");
         }
         String isIncludeRichText = filterConfig.getInitParameter("isIncludeRichText");
         if(StringUtils.isNotBlank(isIncludeRichText)){
             IS_INCLUDE_RICH_TEXT = BooleanUtils.toBoolean(isIncludeRichText);
         }
-
         String temp = filterConfig.getInitParameter("excludes");
         if (temp != null) {
             String[] url = temp.split(",");
