@@ -37,4 +37,10 @@ public class IndexController {
         model.addAttribute("remark", userInfo.getRemark());
         return "/layout/index";
     }
+
+    @ApiIgnore
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public String showDashboard(HttpServletRequest request, Model model) {
+        return "/dashboard";
+    }
 }

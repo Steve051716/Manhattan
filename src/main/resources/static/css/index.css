@@ -3,8 +3,12 @@
  */
 
 /* Move down content because we have a fixed navbar that is 50px tall */
-body {
+body .indexFrame {
   padding-top: 50px;
+}
+
+body .mainFrame {
+  padding-top: 5px;
 }
 
 
