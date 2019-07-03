@@ -46,4 +46,36 @@ public class SysLevelServiceImpl implements SysLevelService {
     public SysLevel findOneRecordByParam(Map<String, Object> param) {
         return sysLevelDAO.findOneRecordByParam(param);
     }
+
+    /**
+     * 保存数据
+     *
+     * @param sysLevel
+     */
+    @Override
+    public void saveRecord(SysLevel sysLevel) {
+
+    }
+
+    /**
+     * 更新数据
+     *
+     * @param sysLevel
+     * @return
+     */
+    @Override
+    public int updateRecord(SysLevel sysLevel) {
+        return 0;
+    }
+
+    /**
+     * 删除数据
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public int deletedRecord(Long id) {
+        return 0;
+    }
 }

@@ -17,8 +17,8 @@ import java.lang.reflect.Method;
  * Redis缓存配置
  * @author
  */
-// @Configuration
-// @EnableCaching
+@Configuration
+@EnableCaching
 public class RedisCacheConfig extends CachingConfigurerSupport {
 
     @Bean

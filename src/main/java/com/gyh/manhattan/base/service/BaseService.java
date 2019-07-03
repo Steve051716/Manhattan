@@ -30,4 +30,24 @@ public interface BaseService<T> {
      * @return
      */
     T findOneRecordByParam(Map<String, Object> param);
+
+    /**
+     * 保存数据
+     * @param t
+     */
+    void saveRecord(T t);
+
+    /**
+     * 更新数据
+     * @param t
+     * @return
+     */
+    int updateRecord(T t);
+
+    /**
+     * 删除数据
+     * @param id
+     * @return
+     */
+    int deletedRecord(Long id);
 }

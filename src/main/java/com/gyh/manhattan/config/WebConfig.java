@@ -1,15 +1,18 @@
 package com.gyh.manhattan.config;
 
-import com.gyh.manhattan.interceptor.LoginInterceptor;
+import com.google.common.collect.Maps;
+import com.gyh.manhattan.config.filter.XssFilter;
+import com.gyh.manhattan.config.interceptor.LoginInterceptor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * web配置
@@ -23,6 +26,24 @@ public class WebConfig implements WebMvcConfigurer {
     public LoginInterceptor getLoginInterceptor() {
         return new LoginInterceptor();
     }
+
+    /**
+     * xss过滤拦截器
+     */
+    @Bean
+    public FilterRegistrationBean xssFilterRegistrationBean() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        filterRegistrationBean.setFilter(new XssFilter());
+        filterRegistrationBean.setOrder(1);
+        filterRegistrationBean.setEnabled(true);
+        filterRegistrationBean.addUrlPatterns("/*");
+        Map<String, String> initParameters = Maps.newHashMap();
+        initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
+        initParameters.put("isIncludeRichText", "true");
+        filterRegistrationBean.setInitParameters(initParameters);
+        return filterRegistrationBean;
+    }
+
     /**
      * 拦截器配置
      * @param registry
