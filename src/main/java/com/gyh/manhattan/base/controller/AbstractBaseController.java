@@ -1,5 +1,6 @@
 package com.gyh.manhattan.base.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.gyh.manhattan.base.service.BaseService;
 import com.gyh.manhattan.common.ExecuteResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public abstract class AbstractBaseController<T> {
         ExecuteResult<T> executeResult = new ExecuteResult<>();
         Map<String, Object> params = new HashMap<>(16);
         params.put("id", request.getParameter("id"));
+        // PageHelper.startPage(1, 10);
         List<T> recordList = service.findRecords(params);
         executeResult.setResultList(recordList);
         return executeResult;

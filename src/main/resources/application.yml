@@ -51,6 +51,12 @@ mybatis:
   configuration:
       call-setters-on-nulls: true
 
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
 thymeleaf:
   prefix: classpath:/templates/
   suffix: .html
