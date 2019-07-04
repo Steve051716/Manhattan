@@ -36,7 +36,7 @@ public interface BaseDAO<T, Long> {
      * 保存
      * @param t
      */
-    void save(T t);
+    int save(T t);
 
     /**
      * 更新

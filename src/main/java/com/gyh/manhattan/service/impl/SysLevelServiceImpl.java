@@ -1,5 +1,6 @@
 package com.gyh.manhattan.service.impl;
 
+import com.gyh.manhattan.common.ExecuteResult;
 import com.gyh.manhattan.dao.SysLevelDAO;
 import com.gyh.manhattan.domain.SysLevel;
 import com.gyh.manhattan.service.SysLevelService;
@@ -51,10 +52,21 @@ public class SysLevelServiceImpl implements SysLevelService {
      * 保存数据
      *
      * @param sysLevel
+     * @return
      */
     @Override
-    public void saveRecord(SysLevel sysLevel) {
+    public ExecuteResult<SysLevel> addEditRecord(SysLevel sysLevel) {
+        return null;
+    }
 
+    /**
+     * 保存数据
+     *
+     * @param sysLevel
+     */
+    @Override
+    public ExecuteResult<SysLevel> saveRecord(SysLevel sysLevel) {
+        return null;
     }
 
     /**
@@ -64,8 +76,8 @@ public class SysLevelServiceImpl implements SysLevelService {
      * @return
      */
     @Override
-    public int updateRecord(SysLevel sysLevel) {
-        return 0;
+    public ExecuteResult<SysLevel> updateRecord(SysLevel sysLevel) {
+        return null;
     }
 
     /**
@@ -75,7 +87,9 @@ public class SysLevelServiceImpl implements SysLevelService {
      * @return
      */
     @Override
-    public int deletedRecord(Long id) {
-        return 0;
+    public ExecuteResult<SysLevel> deletedRecord(Long id) {
+        return null;
     }
+
+
 }

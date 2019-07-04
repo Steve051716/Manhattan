@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author
  */
+@ApiIgnore
 @Controller
 public class IndexController {
 
@@ -26,13 +27,12 @@ public class IndexController {
     @Inject
     private UserInfoService userInfoService;
 
-    @ApiIgnore
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String index(HttpServletRequest request, Model model, HttpServletResponse response) {
         return "/login";
     }
 
-    @ApiIgnore
     @RequestMapping(value = "logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.getSession().invalidate();
@@ -40,7 +40,6 @@ public class IndexController {
         return null;
     }
 
-    @ApiIgnore
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(HttpServletRequest request, Model model) {
         String userId = request.getSession().getAttribute(ConstParam.GLOBAL_SESSION_ATTRIBUTE_USER_ID) + "";
@@ -52,9 +51,8 @@ public class IndexController {
         return "/layout/index";
     }
 
-    @ApiIgnore
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String showDashboard(HttpServletRequest request, Model model) {
-        return "/dashboard";
+        return "/content/dashboard";
     }
 }

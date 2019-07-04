@@ -1,5 +1,7 @@
 package com.gyh.manhattan.base.service;
 
+import com.gyh.manhattan.common.ExecuteResult;
+
 import java.util.List;
 import java.util.Map;
 
@@ -34,20 +36,27 @@ public interface BaseService<T> {
     /**
      * 保存数据
      * @param t
+     * @return
      */
-    void saveRecord(T t);
+    ExecuteResult<T> addEditRecord(T t);
+
+    /**
+     * 保存数据
+     * @param t
+     */
+    ExecuteResult<T> saveRecord(T t);
 
     /**
      * 更新数据
      * @param t
      * @return
      */
-    int updateRecord(T t);
+    ExecuteResult<T> updateRecord(T t);
 
     /**
      * 删除数据
      * @param id
      * @return
      */
-    int deletedRecord(Long id);
+    ExecuteResult<T> deletedRecord(Long id);
 }

@@ -1,5 +1,6 @@
 package com.gyh.manhattan.service.impl;
 
+import com.gyh.manhattan.common.ExecuteResult;
 import com.gyh.manhattan.dao.UserInfoDAO;
 import com.gyh.manhattan.domain.UserInfo;
 import com.gyh.manhattan.service.UserInfoService;
@@ -52,10 +53,21 @@ public class UserInfoServiceImpl implements UserInfoService {
      * 保存数据
      *
      * @param userInfo
+     * @return
      */
     @Override
-    public void saveRecord(UserInfo userInfo) {
-        userInfoDAO.save(userInfo);
+    public ExecuteResult<UserInfo> addEditRecord(UserInfo userInfo) {
+        return null;
+    }
+
+    /**
+     * 保存数据
+     *
+     * @param userInfo
+     */
+    @Override
+    public ExecuteResult<UserInfo> saveRecord(UserInfo userInfo) {
+        return null;
     }
 
     /**
@@ -65,9 +77,10 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @return
      */
     @Override
-    public int updateRecord(UserInfo userInfo) {
-        return userInfoDAO.update(userInfo);
+    public ExecuteResult<UserInfo> updateRecord(UserInfo userInfo) {
+        return null;
     }
+
     /**
      * 删除数据
      *
@@ -75,7 +88,9 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @return
      */
     @Override
-    public int deletedRecord(Long id) {
-        return 0;
+    public ExecuteResult<UserInfo> deletedRecord(Long id) {
+        return null;
     }
+
+
 }
