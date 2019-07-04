@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gyh.manhattan.dao.SysMessageDAO" >
+  <resultMap id="messageResultMap" type="com.gyh.manhattan.model.SysMessageModel" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="deleted_flag" property="deletedFlag" jdbcType="CHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, content, user_id, deleted_flag, created_at
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="messageResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="findRecordsByParam" parameterType="java.util.Map" resultMap="messageResultMap">
+    select
+      a.id, title, content, user_id, b.`name` user_name, a.deleted_flag, a.created_at
+    from
+      sys_message a join  user_info b on a.user_id = b.id and a.deleted_flag = '0' and b.deleted_flag = '0'
+    where 1=1
+    <if test="id != null">
+      and a.id = #{id}
+    </if>
+    <if test="title != null and title != ''">
+      and title like CONCAT('%', #{title}, '%')
+    </if>
+    <if test="userId != null">
+      and user_id = #{userId}
+    </if>
+  </select>
+
+  <update id="delete" parameterType="java.lang.Long" >
+    update sys_message set deleted_flag = '1' where id = #{id}
+  </update>
+
+  <insert id="save" parameterType="com.gyh.manhattan.domain.SysMessage" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+        deleted_flag,
+        created_at
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      '0',
+      now()
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.gyh.manhattan.domain.SysMessage" >
+    update sys_message
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
