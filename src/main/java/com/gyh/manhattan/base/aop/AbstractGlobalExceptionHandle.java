@@ -15,7 +15,7 @@ public abstract class AbstractGlobalExceptionHandle {
     private Logger LOG = LoggerFactory.getLogger(AbstractGlobalExceptionHandle.class);
 
     /**
-     *
+     * 异常统一处理
      * @param e
      * @return
      */
