@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>系统出问题了</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script src="../../static/assets/js/vendor/jquery.min.js"></script>
+    <script src="../../static/dist/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<!-- Begin page content -->
+<div class="container">
+    <div class="page-header">
+        <h2>错误码：<label th:text="${result.status}"></label></h2>
+    </div>
+    <div>
+        <p class="lead" th:text="${result.message}"></p>
+        <a href="#demo" data-toggle="collapse">详细信息</a>
+    </div>
+    <div id="demo" class="collapse well">
+        <p th:text="${result.fullErrorMessage}"></p>
+    </div>
+    <br/>
+    <p>点击 <a href="#">反馈当前问题</a> ，感谢您的支持。</p>
+</div>
+</body>
+</html>
