@@ -36,7 +36,7 @@
 <script type="text/javascript">
     function login() {
         var params = $("#loginForm").serialize();
-        $.post("/login", params, function(result){
+        $.post("/api/login", params, function(result){
             if (result.status == "000000") {
                 window.location.href = result.redirectUrl;
                 return;

@@ -53,7 +53,7 @@ public class WebConfig implements WebMvcConfigurer {
         List<String> swaggerPathPatterns = Arrays.asList("/swagger-ui.html", "/webjars/springfox-swagger-ui/**", "/swagger-resources/**", "/v2/api-docs");
         registry.addInterceptor(getLoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login")
+                .excludePathPatterns("/login", "/api/login")
                 .excludePathPatterns("/logout")
                 .excludePathPatterns("/error")
                 .excludePathPatterns("/error/**")
