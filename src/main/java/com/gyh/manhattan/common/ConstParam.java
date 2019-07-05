@@ -18,6 +18,7 @@ public class ConstParam {
     public static final String STATUS_SYSTEM_EXCEPTION = "000002";
     public static final String STATUS_NO_LOGIN = "000002";
 
+    public static final String DEFAULT_LOGIN_VIEW = "/login";
     // 定义错误显示页，error.html
     public static final String DEFAULT_ERROR_VIEW = "/error";
 

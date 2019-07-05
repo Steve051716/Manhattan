@@ -47,16 +47,17 @@ public class LoginInterceptor implements HandlerInterceptor {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             LOG.info(handlerMethod.getMethod().getName());
             RequestCallBack requestCallBack = handlerMethod.getMethod().getAnnotation(RequestCallBack.class);
-            if (ConstParam.REQUEST_CALL_BACK_TYPE_API.equals(requestCallBack.type())) {
+            if (requestCallBack != null && ConstParam.REQUEST_CALL_BACK_TYPE_API.equals(requestCallBack.type())) {
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("text/html;charset=utf-8");
                 response.getWriter().print(JSON.toJSON(new ExecuteResult<>(
                         ConstParam.STATUS_NO_LOGIN,
                         ConstParam.MESSAGE_NO_LOGIN,
-                        ConstParam.MESSAGE_NO_LOGIN, null)));
+                        ConstParam.MESSAGE_NO_LOGIN,
+                        ConstParam.DEFAULT_LOGIN_VIEW)));
             }
             else {
-                response.sendRedirect("/login");
+                response.sendRedirect(ConstParam.DEFAULT_LOGIN_VIEW);
             }
             return false;
         }
