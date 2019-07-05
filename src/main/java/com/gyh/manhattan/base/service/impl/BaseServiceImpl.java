@@ -5,6 +5,7 @@ import com.gyh.manhattan.base.domain.BaseEntityBean;
 import com.gyh.manhattan.base.service.BaseService;
 import com.gyh.manhattan.common.ConstParam;
 import com.gyh.manhattan.common.ExecuteResult;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -49,6 +50,7 @@ public class BaseServiceImpl<T extends BaseEntityBean> implements BaseService {
      * @return
      */
     @Override
+    @Transactional
     public ExecuteResult<T> addEditRecord(Object o) {
         ExecuteResult<T> executeResult = new ExecuteResult<>();
         if (o != null) {
@@ -73,6 +75,7 @@ public class BaseServiceImpl<T extends BaseEntityBean> implements BaseService {
      * @param o
      */
     @Override
+    @Transactional
     public ExecuteResult<T> saveRecord(Object o) {
         ExecuteResult<T> executeResult = new ExecuteResult<>();
         if (o != null) {
@@ -93,6 +96,7 @@ public class BaseServiceImpl<T extends BaseEntityBean> implements BaseService {
      * @return
      */
     @Override
+    @Transactional
     public ExecuteResult<T> updateRecord(Object o) {
         ExecuteResult<T> executeResult = new ExecuteResult<>();
         if (o != null) {
@@ -115,6 +119,7 @@ public class BaseServiceImpl<T extends BaseEntityBean> implements BaseService {
      * @return
      */
     @Override
+    @Transactional
     public ExecuteResult deletedRecord(Long id) {
         if (id == null) {
             return new ExecuteResult<>(ConstParam.STATUS_FAILED, ConstParam.MESSAGE_DATA_ERROR, ConstParam.MESSAGE_DATA_ERROR, null);
