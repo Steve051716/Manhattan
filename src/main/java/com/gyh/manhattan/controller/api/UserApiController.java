@@ -1,6 +1,7 @@
 package com.gyh.manhattan.controller.api;
 
 import com.alibaba.fastjson.JSON;
+import com.gyh.manhattan.base.annotation.RequestCallBack;
 import com.gyh.manhattan.common.ConstParam;
 import com.gyh.manhattan.common.ExecuteResult;
 import com.gyh.manhattan.domain.UserInfo;
@@ -27,6 +28,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "/api")
+@RequestCallBack(type = ConstParam.REQUEST_CALL_BACK_TYPE_API)
 public class UserApiController {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserApiController.class);
@@ -39,6 +41,7 @@ public class UserApiController {
     @ApiOperation(value="登陆校验", notes="根据用户、密码是否存在")
     @ApiImplicitParam(name = "request", value = "请求", required = true, dataType = "HttpServletRequest", paramType = "body")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestCallBack(type = ConstParam.REQUEST_CALL_BACK_TYPE_API)
     public String login(HttpServletRequest request) throws Exception {
         ExecuteResult result = new ExecuteResult();
         String name = request.getParameter("userName");

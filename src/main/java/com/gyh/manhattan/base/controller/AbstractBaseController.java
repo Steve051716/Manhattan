@@ -2,8 +2,10 @@ package com.gyh.manhattan.base.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.gyh.manhattan.base.annotation.RequestCallBack;
 import com.gyh.manhattan.base.form.BaseFormModel;
 import com.gyh.manhattan.base.service.BaseService;
+import com.gyh.manhattan.common.ConstParam;
 import com.gyh.manhattan.common.ExecuteResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,7 @@ public abstract class AbstractBaseController<T> {
      * @return
      */
     @RequestMapping(value = "/listPage", method = RequestMethod.GET)
+    @RequestCallBack(type = ConstParam.REQUEST_CALL_BACK_TYPE_API)
     protected ExecuteResult<T> findRecordsByPage(BaseFormModel<T> baseFormModel) {
         ExecuteResult<T> executeResult = new ExecuteResult<>();
         PageHelper.startPage(baseFormModel.getPageNum(), baseFormModel.getPageSize());
@@ -40,6 +43,7 @@ public abstract class AbstractBaseController<T> {
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestCallBack(type = ConstParam.REQUEST_CALL_BACK_TYPE_API)
     protected ExecuteResult<T> findRecordsByList(BaseFormModel<T> baseFormModel) {
         ExecuteResult<T> executeResult = new ExecuteResult<>();
         executeResult.setResultList(this.findRecords(baseFormModel));
@@ -61,6 +65,7 @@ public abstract class AbstractBaseController<T> {
      * @return
      */
     @RequestMapping(value = "/record/{id:^\\d+$}", method = RequestMethod.GET)
+    @RequestCallBack(type = ConstParam.REQUEST_CALL_BACK_TYPE_API)
     protected ExecuteResult<T> findOneRecordById(@PathVariable("id")Long id) {
         ExecuteResult<T> executeResult = new ExecuteResult<>();
         T recordList = service.findOneRecordById(id);
@@ -74,6 +79,7 @@ public abstract class AbstractBaseController<T> {
      * @return
      */
     @RequestMapping(value = "/record", method = RequestMethod.POST)
+    @RequestCallBack(type = ConstParam.REQUEST_CALL_BACK_TYPE_API)
     protected ExecuteResult<T> addEditRecord(T t) {
         return service.addEditRecord(t);
     }
@@ -84,6 +90,7 @@ public abstract class AbstractBaseController<T> {
      * @return
      */
     @RequestMapping(value = "/record/{id:^\\d+$}", method = RequestMethod.DELETE)
+    @RequestCallBack(type = ConstParam.REQUEST_CALL_BACK_TYPE_API)
     protected ExecuteResult<T> deleteRecord(@PathVariable("id")Long id) {
         return service.deletedRecord(id);
     }
