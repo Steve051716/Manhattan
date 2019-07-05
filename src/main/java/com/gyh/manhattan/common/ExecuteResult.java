@@ -1,5 +1,7 @@
 package com.gyh.manhattan.common;
 
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ public class ExecuteResult<T> {
     private String redirectUrl;
     private T result;
     private List<T> resultList;
+    private PageInfo<T> pageInfo;
 
     public ExecuteResult() {
     }
@@ -79,5 +82,13 @@ public class ExecuteResult<T> {
 
     public void setResultList(List<T> resultList) {
         this.resultList = resultList;
+    }
+
+    public PageInfo<T> getPageInfo() {
+        return pageInfo;
+    }
+
+    public void setPageInfo(PageInfo<T> pageInfo) {
+        this.pageInfo = pageInfo;
     }
 }

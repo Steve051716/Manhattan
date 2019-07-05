@@ -1,6 +1,8 @@
 package com.gyh.manhattan.base.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.gyh.manhattan.base.form.BaseFormModel;
 import com.gyh.manhattan.base.service.BaseService;
 import com.gyh.manhattan.common.ExecuteResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 抽象controller基类
@@ -23,19 +22,37 @@ public abstract class AbstractBaseController<T> {
     protected BaseService<T> service;
 
     /**
+     * 分页查看多条数据
+     * @param baseFormModel
+     * @return
+     */
+    @RequestMapping(value = "/listPage", method = RequestMethod.GET)
+    protected ExecuteResult<T> findRecordsByPage(BaseFormModel<T> baseFormModel) {
+        ExecuteResult<T> executeResult = new ExecuteResult<>();
+        PageHelper.startPage(baseFormModel.getPageNum(), baseFormModel.getPageSize());
+        executeResult.setPageInfo(new PageInfo<>(this.findRecords(baseFormModel)));
+        return executeResult;
+    }
+
+    /**
      * 查看多条数据
-     * @param request
+     * @param baseFormModel
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    protected ExecuteResult<T> findRecords(HttpServletRequest request) {
+    protected ExecuteResult<T> findRecordsByList(BaseFormModel<T> baseFormModel) {
         ExecuteResult<T> executeResult = new ExecuteResult<>();
-        Map<String, Object> params = new HashMap<>(16);
-        params.put("id", request.getParameter("id"));
-        // PageHelper.startPage(1, 10);
-        List<T> recordList = service.findRecords(params);
-        executeResult.setResultList(recordList);
+        executeResult.setResultList(this.findRecords(baseFormModel));
         return executeResult;
+    }
+
+    /**
+     *
+     * @param baseFormModel
+     * @return
+     */
+    private List<T> findRecords(BaseFormModel<T> baseFormModel) {
+        return service.findRecords(null);
     }
 
     /**
